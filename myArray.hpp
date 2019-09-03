@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 template<typename T, size_t arraySize>
@@ -10,10 +11,8 @@ public:
     myArray(){};
     ~myArray(){};
 
-    //copy constructor
-
-    template <typename T2, size_t sidid>
-    myArray( myArray<T2, sidid>& ar1)
+    template <typename T2, size_t sizee>
+    myArray( myArray<T2, sizee>& ar1)
     {
          for (auto i = 0; i < arraySize; i++)
          {
@@ -21,19 +20,15 @@ public:
          }  
     }
 
-    myArray &operator=(myArray const &other)
-    {
-        // 1: allocate new memory and copy the elements
-
-        if (this != &other)
-        {
-
-            cout << endl <<  "size:" << other.getSize() << endl;
-            array_ = new T[other.getSize()];
-        }
-        // 2: deallocate old memory
-
-        // 3: assign the new memory to the object
+    template<typename T2, size_t sizee>
+    myArray &operator=( myArray<T2, sizee>& other){
+      size_t smallest = other.getSize() > getSize() ? getSize() : other.getSize();
+      cout << "the smallest" << smallest << endl;
+      for (auto i = 0; i < smallest; i++)
+      {
+        array_[i] = other[i];
+      }
+      return *this;
     };
 
     void fill(const T& t){
@@ -58,13 +53,73 @@ public:
          return &array_[arraySize];
     };
 
-    T &operator[](size_t index)
+    T &operator[](size_t index){
+        return array_[index];
+    };
+
+    size_t getSize() {return arraySize;};
+};
+
+template<typename T, size_t arraySize>
+class myArray<T*, arraySize>
+{
+private:
+    T* array_ [arraySize];
+public:
+    myArray(){
+        cout << "PARTIAL" << endl;
+    };
+    ~myArray(){
+      for (auto i = 0; i < arraySize; i++)
+      {
+        delete array_[i]; 
+      }
+    };
+
+    template <typename T2, size_t sizee>
+    myArray( myArray<T2, sizee>& ar1)
     {
-        if (index >= getSize())
+         for (auto i = 0; i < arraySize; i++)
+         {
+             cout << "deleting : " << array_[i] << endl;
+            array_[i] = ar1[i];
+         }  
+    }
+
+    template<typename T2, size_t sizee>
+    myArray &operator=( myArray<T2, sizee>& other){
+      size_t smallest = other.getSize() > getSize() ? getSize() : other.getSize();
+      cout << "the smallest" << smallest << endl;
+      for (auto i = 0; i < smallest; i++)
+      {
+        array_[i] = other[i];
+      }
+      return *this;
+    };
+
+    void fill( T* t){
+        for (size_t i = 0; i < getSize(); i++)
         {
-            cout << "Array index out of bound, exiting";
-            throw std::out_of_range ("out of range");
+            array_[i] = t;
         }
+    };
+
+    void print(){
+        for (int i = 0; i < getSize(); i++)
+        {
+            cout << "element: " << i  << " is : "<< *array_[i] << endl;
+        } 
+    }
+
+    T* begin(){
+        return array_[0];
+    };
+
+    T* end(){
+         return array_[arraySize];
+    };
+
+    T& operator[](size_t index){
         return array_[index];
     };
 
@@ -84,3 +139,4 @@ T *myFind(T *first, T *last, T1 &v)
     }
     return last;
 }
+ 
