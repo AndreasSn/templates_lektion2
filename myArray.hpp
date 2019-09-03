@@ -8,6 +8,9 @@ private:
     T array_ [arraySize];
 public:
     myArray(){
+        array_[arraySize] = 100;
+        cout << "plads 3 "<< array_[arraySize] << endl;
+
     };
     ~myArray(){};
 
@@ -24,6 +27,7 @@ public:
         cout << "plads 1 "<< array_[1] << endl;
         cout << "plads 2 "<< array_[2] << endl;
         cout << "plads 3 "<< array_[3] << endl;
+        cout << "plads 4 "<< array_[4] << endl;
         
     };
 
