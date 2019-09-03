@@ -6,14 +6,17 @@
 #include <algorithm>
 #include <array>
 
+
+
 int main(){
     
     myArray<int, 3> a1 = myArray<int, 3>();
 
     a1.fill(5);
 
-    // std::cout << *a1.begin() << std::endl;
-    // std::cout << *a1.end() << std::endl;
-    // std::cout << a1.size() << std::endl;
+    a1[0] = 3; // Assuming that 'my' has been appropriately allocated based on MyArray.
+    int number = 10;
+    std ::cout << "Looking for '3'? " << endl << (myFind(a1.begin(), a1.end(), number) != a1.end() ? "found" : "sry no") << std ::endl;
 
 }
+
