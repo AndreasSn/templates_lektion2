@@ -26,17 +26,19 @@ int main(){
   //  a1.print();
   //  cout << "a2" << endl;
   //  a2.print();
-        myArray<int*, 3> s1 = myArray<int*, 3>();
+        myArray<string*, 3> s1 = myArray<string*, 3>();
 
         {
-        string* hej = new std::string("hje");
-        int* yo = new int(5);
+        string* yo = new string("Hej");
         s1.fill(yo);
         s1.print();
-        auto lort = new int(10);
-        cout << lort << endl;
-        s1[1] = new int(10);
+
+        s1[1] = new string("Hello");
         s1.print();
+
+        
+        std::cout << "Looking for 'Hello '? " << (myFind(s1.begin (), s1.end(),
+        std::string("Hello")) != s1.end()? "found" : "sry no") << std::endl;
 
         }
 

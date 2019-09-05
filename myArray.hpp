@@ -60,6 +60,21 @@ public:
     size_t getSize() {return arraySize;};
 };
 
+template <typename T, typename T1>
+T *myFind(T *first, T *last, T1 &v)
+{
+    for (auto i = first; i < last; i++)
+    {
+        cout << "checking if i: " << *i << "is equal to v: " << v << endl;
+        if (*i == v)
+        {
+            return i;
+        }
+    }
+    return last;
+}
+ 
+
 template<typename T, size_t arraySize>
 class myArray<T*, arraySize>
 {
@@ -111,15 +126,15 @@ public:
         } 
     }
 
-    T* begin(){
-        return array_[0];
+    T** begin(){
+        return &array_[0];
     };
 
-    T* end(){
-         return array_[arraySize];
+    T** end(){
+         return &array_[arraySize];
     };
 
-    T& operator[](size_t index){
+    T*& operator[](size_t index){
         return array_[index];
     };
 
@@ -127,16 +142,16 @@ public:
 };
 
 template <typename T, typename T1>
-T *myFind(T *first, T *last, T1 &v)
+T **myFind(T **first, T **last, const T1 &v)
 {
     for (auto i = first; i < last; i++)
     {
-        cout << "checking if i: " << *i << "is equal to v: " << v << endl;
-        if (*i == v)
+        //cout << "checking if i: " << *i << "is equal to v: " << v << endl;
+        if (**i == v)
         {
             return i;
         }
     }
     return last;
 }
- 
+
